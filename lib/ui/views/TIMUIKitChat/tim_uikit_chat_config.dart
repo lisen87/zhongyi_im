@@ -83,6 +83,7 @@ class TIMUIKitChatConfig {
   /// Control if take emoji stickers as message reaction.
   /// [Default]: true.
   final bool isUseMessageReaction;
+  final bool isShowTextField;
 
   const TIMUIKitChatConfig(
       {this.isAtWhenReply = true,
@@ -105,5 +106,6 @@ class TIMUIKitChatConfig {
       this.isAllowClickAvatar = true,
       this.isShowGroupReadingStatus = true,
       this.showC2cMessageEditStaus = true,
+      this.isShowTextField = true,
       });
 }

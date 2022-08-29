@@ -69,6 +69,8 @@ class TIMUIKitInputTextField extends StatefulWidget {
       void Function() deleteText,
       void Function(int unicode) addText})? customStickerPanel;
 
+  final Function? closeTap;
+
   const TIMUIKitInputTextField(
       {Key? key,
       required this.conversationID,
@@ -85,6 +87,7 @@ class TIMUIKitInputTextField extends StatefulWidget {
       this.showMorePannel = true,
       this.backgroundColor,
       this.controller,
+      this.closeTap,
       this.onChanged})
       : super(key: key);
 
@@ -667,7 +670,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
             children: [
               _buildRepliedMessage(value),
               Container(
-                color: widget.backgroundColor ?? hexToColor("EBF0F6"),
+                color: widget.backgroundColor ?? const Color(0xFFf6f6f6),
                 child: SafeArea(
                   child: Column(
                     children: [
@@ -790,6 +793,23 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
                               const SizedBox(
                                 width: 10,
                               ),
+
+                            InkWell(
+                              onTap: () {
+                                widget.closeTap?.call();
+                              },
+                              child: Image.asset(
+                                'images/zy_icon_46.png',
+                                package: 'tim_ui_kit',
+                                color: const Color.fromRGBO(68, 68, 68, 1),
+                                height: 23,
+                                width: 23,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+
                             if (widget.showMorePannel && forbiddenText == null)
                               InkWell(
                                 onTap: () {
@@ -797,14 +817,14 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
                                   _openMore();
                                   goDownBottom();
                                 },
-                                child: SvgPicture.asset(
-                                  'images/add.svg',
+                                child: Image.asset(
+                                  'images/zy_icon_47.png',
                                   package: 'tim_ui_kit',
                                   color: const Color.fromRGBO(68, 68, 68, 1),
-                                  height: 28,
-                                  width: 28,
+                                  height: 23,
+                                  width: 23,
                                 ),
-                              )
+                              ),
                           ],
                         ),
                       ),

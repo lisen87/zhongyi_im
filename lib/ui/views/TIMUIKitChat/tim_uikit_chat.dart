@@ -106,6 +106,7 @@ class TIMUIKitChat extends StatefulWidget {
       void Function() deleteText,
       void Function(int unicode) addText})? customStickerPanel;
 
+  final Function? closeTap;
   TIMUIKitChat({
     Key? key,
     required this.conversationID,
@@ -125,6 +126,7 @@ class TIMUIKitChat extends StatefulWidget {
     this.initFindingMsg,
     this.appBarConfig,
     this.morePanelConfig,
+    this.closeTap,
     this.customStickerPanel,
     this.config = const TIMUIKitChatConfig(),
     this.tongueItemBuilder,
@@ -373,7 +375,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         ? MultiSelectPanel(
                             conversationType: widget.conversationType,
                           )
-                        : TIMUIKitInputTextField(
+                        : widget.config?.isShowTextField ?? true ? TIMUIKitInputTextField(
                             groupInfo: _groupInfo,
                             groupMemberList: _groupMemberList,
                             controller: textFieldController,
@@ -383,6 +385,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                             conversationID: widget.conversationID,
                             conversationType: widget.conversationType,
                             initText: widget.draftText,
+                            closeTap: widget.closeTap,
                             hintText: widget.textFieldHintText,
                             showMorePannel:
                                 widget.config?.isAllowShowMorePanel ?? true,
@@ -390,7 +393,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                 widget.config?.isAllowSoundMessage ?? true,
                             showSendEmoji:
                                 widget.config?.isAllowEmojiPanel ?? true,
-                          )
+                          ):const SizedBox(),
                   ],
                 )),
           );
