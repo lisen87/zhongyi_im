@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'TIMUIKitConversation':
         return const TIMUIKitConversationExample();
       case 'TIMUIKitChat':
-        return const TIMUIKitChatExample();
+        return TIMUIKitChatExample();
       case 'TIMUIKitProfile':
         return const TIMUIKitProfileExample();
       case 'TIMUIKitAddFriend':

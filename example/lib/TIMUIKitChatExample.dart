@@ -1,13 +1,15 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:tim_ui_kit/business_logic/view_models/tui_chat_view_model.dart';
+import 'package:tim_ui_kit/data_services/services_locatar.dart';
 import 'package:tim_ui_kit/tim_ui_kit.dart';
 import 'package:tim_ui_kit/ui/views/TIMUIKitChat/TIMUIKItMessageList/TIMUIKitTongue/tim_uikit_chat_history_message_list_tongue.dart';
 import 'package:tim_ui_kit/ui/views/TIMUIKitChat/tim_uikit_chat.dart';
 
 class TIMUIKitChatExample extends StatelessWidget {
-  const TIMUIKitChatExample({Key? key}) : super(key: key);
-
+  final TUIChatViewModel model = serviceLocator<TUIChatViewModel>();
+  TIMUIKitChatExample({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return TIMUIKitChat(

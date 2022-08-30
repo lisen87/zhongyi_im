@@ -90,17 +90,17 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
             _onFeatureTap("screen", c);
           },
           icon: Container(
-            height: 64,
-            width: 64,
+            height: 54,
+            width: 54,
             margin: const EdgeInsets.only(bottom: 4),
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
-            child: SvgPicture.asset(
-              "images/screen.svg",
+            child: Image.asset(
+              "images/zy_icon_48.png",
               package: 'tim_ui_kit',
-              height: 64,
-              width: 64,
+              height: 54,
+              width: 54,
             ),
           )),
       MorePanelItem(
@@ -110,17 +110,17 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
             _onFeatureTap("photo", c);
           },
           icon: Container(
-            height: 64,
-            width: 64,
+            height: 54,
+            width: 54,
             margin: const EdgeInsets.only(bottom: 4),
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
-            child: SvgPicture.asset(
-              "images/photo.svg",
+            child: Image.asset(
+              "images/zy_icon_49.png",
               package: 'tim_ui_kit',
-              height: 64,
-              width: 64,
+              height: 54,
+              width: 54,
             ),
           )),
       MorePanelItem(
