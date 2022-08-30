@@ -33,7 +33,8 @@ import 'package:tim_ui_kit/base_widgets/tim_ui_kit_base.dart';
 
 import '../TIMUIKitMessageItem/TIMUIKitMessageReaction/tim_uikit_message_reaction_select_emoji.dart';
 
-typedef MessageRowBuilder = Widget Function(
+
+typedef MessageRowBuilder = Widget? Function(
   /// current message
   V2TimMessage message,
 
@@ -97,6 +98,7 @@ class MessageItemBuilder {
   /// group calling message builder, show without avatar and nickname
   final MessageItemContent? groupTRTCTipsItemBuilder;
 
+  /// 当返回不为 null 时 有效
   /// the builder for the whole message line, expect for those message type without avatar and nickname.
   final MessageRowBuilder? messageRowBuilder;
 
@@ -773,7 +775,7 @@ class _TIMUIKItHistoryMessageListItemState
 
     // 使用自定义行
     if (widget.messageItemBuilder?.messageRowBuilder != null) {
-      return widget.messageItemBuilder!.messageRowBuilder!(
+      Widget? rowContent = widget.messageItemBuilder!.messageRowBuilder!(
         message,
         _getMessageItemBuilder(message, message.status),
         widget.onScrollToIndex ?? () {},
@@ -781,6 +783,9 @@ class _TIMUIKItHistoryMessageListItemState
         clearJump,
         widget.onScrollToIndexBegin ?? () {},
       );
+      if(rowContent != null) {
+        return rowContent;
+      }
     }
 
     final messageReadReceipt =

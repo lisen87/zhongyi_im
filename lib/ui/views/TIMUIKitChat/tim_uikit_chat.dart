@@ -375,25 +375,28 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         ? MultiSelectPanel(
                             conversationType: widget.conversationType,
                           )
-                        : widget.config?.isShowTextField ?? true ? TIMUIKitInputTextField(
-                            groupInfo: _groupInfo,
-                            groupMemberList: _groupMemberList,
-                            controller: textFieldController,
-                            customStickerPanel: widget.customStickerPanel,
-                            morePanelConfig: widget.morePanelConfig,
-                            scrollController: autoController,
-                            conversationID: widget.conversationID,
-                            conversationType: widget.conversationType,
-                            initText: widget.draftText,
-                            closeTap: widget.closeTap,
-                            hintText: widget.textFieldHintText,
-                            showMorePannel:
-                                widget.config?.isAllowShowMorePanel ?? true,
-                            showSendAudio:
-                                widget.config?.isAllowSoundMessage ?? true,
-                            showSendEmoji:
-                                widget.config?.isAllowEmojiPanel ?? true,
-                          ):const SizedBox(),
+                        : Offstage(
+                      offstage: !(widget.config?.isShowTextField ?? true),
+                          child: TIMUIKitInputTextField(
+                              groupInfo: _groupInfo,
+                              groupMemberList: _groupMemberList,
+                              controller: textFieldController,
+                              customStickerPanel: widget.customStickerPanel,
+                              morePanelConfig: widget.morePanelConfig,
+                              scrollController: autoController,
+                              conversationID: widget.conversationID,
+                              conversationType: widget.conversationType,
+                              initText: widget.draftText,
+                              closeTap: widget.closeTap,
+                              hintText: widget.textFieldHintText,
+                              showMorePannel:
+                                  widget.config?.isAllowShowMorePanel ?? true,
+                              showSendAudio:
+                                  widget.config?.isAllowSoundMessage ?? true,
+                              showSendEmoji:
+                                  widget.config?.isAllowEmojiPanel ?? true,
+                            ),
+                        ),
                   ],
                 )),
           );
