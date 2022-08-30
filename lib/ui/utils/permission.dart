@@ -71,55 +71,57 @@ class _PermissionRequestInfo extends TIMUIKitState<PermissionRequestInfo>
       },
     }[widget.permissionType];
     final option2 = permission?["name"] ?? "";
-    return Stack(
-      children: [
-        Positioned(
-          child: SafeArea(
-            child: Opacity(
-              opacity: 0.7,
-              child: Container(
-                color: Colors.black,
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset(
-                        permission?["icon"] ?? "",
-                        package: "tim_ui_kit",
+    return Material(
+      child: Stack(
+        children: [
+          Positioned(
+            child: SafeArea(
+              child: Opacity(
+                opacity: 0.7,
+                child: Container(
+                  color: Colors.black,
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset(
+                          permission?["icon"] ?? "",
+                          package: "tim_ui_kit",
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      TIM_t(widget.appName) +
-                          TIM_t_para(" 申请获取{{option2}}", " 申请获取$option2")(
-                              option2: option2) +
-                          TIM_t("权限"),
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      permission?["text"] ?? "",
-                      style:
-                          const TextStyle(color: Colors.white70, fontSize: 16),
-                    )
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        TIM_t(widget.appName) +
+                            TIM_t_para(" 申请获取{{option2}}", " 申请获取$option2")(
+                                option2: option2) +
+                            TIM_t("权限"),
+                        style: const TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        permission?["text"] ?? "",
+                        style:
+                            const TextStyle(color: Colors.white70, fontSize: 16),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          left: 0,
-          right: 0,
-          bottom: 0,
-          top: 0,
-        )
-      ],
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+          )
+        ],
+      ),
     );
   }
 }

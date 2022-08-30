@@ -187,55 +187,57 @@ class _VideoScreenState extends TIMUIKitState<VideoScreen> {
 
   @override
   Widget tuiBuild(BuildContext context, TUIKitBuildValue value) {
-    return OrientationBuilder(builder: ((context, orientation) {
-      return Container(
-        color: Colors.transparent,
-        constraints: BoxConstraints.expand(
-          height: MediaQuery.of(context).size.height,
-        ),
-        child: ExtendedImageSlidePage(
-            key: slidePagekey,
-            slidePageBackgroundHandler: (Offset offset, Size size) {
-              if (orientation == Orientation.landscape) {
-                return Colors.black;
-              }
-              double opacity = 0.0;
-              opacity = offset.distance /
-                  (Offset(size.width, size.height).distance / 2.0);
-              return Colors.black
-                  .withOpacity(min(1.0, max(1.0 - opacity, 0.0)));
-            },
-            slideType: SlideType.onlyImage,
-            child: ExtendedImageSlidePageHandler(
-              child: Container(
-                  color: Colors.black,
-                  child: isInit
-                      ? Chewie(
-                          controller: chewieController,
-                        )
-                      : const Center(
-                          child:
-                              CircularProgressIndicator(color: Colors.white))),
-              heroBuilderForSlidingPage: (Widget result) {
-                return Hero(
-                  tag: widget.heroTag,
-                  child: result,
-                  flightShuttleBuilder: (BuildContext flightContext,
-                      Animation<double> animation,
-                      HeroFlightDirection flightDirection,
-                      BuildContext fromHeroContext,
-                      BuildContext toHeroContext) {
-                    final Hero hero =
-                        (flightDirection == HeroFlightDirection.pop
-                            ? fromHeroContext.widget
-                            : toHeroContext.widget) as Hero;
-
-                    return hero.child;
-                  },
-                );
+    return Material(
+      child: OrientationBuilder(builder: ((context, orientation) {
+        return Container(
+          color: Colors.transparent,
+          constraints: BoxConstraints.expand(
+            height: MediaQuery.of(context).size.height,
+          ),
+          child: ExtendedImageSlidePage(
+              key: slidePagekey,
+              slidePageBackgroundHandler: (Offset offset, Size size) {
+                if (orientation == Orientation.landscape) {
+                  return Colors.black;
+                }
+                double opacity = 0.0;
+                opacity = offset.distance /
+                    (Offset(size.width, size.height).distance / 2.0);
+                return Colors.black
+                    .withOpacity(min(1.0, max(1.0 - opacity, 0.0)));
               },
-            )),
-      );
-    }));
+              slideType: SlideType.onlyImage,
+              child: ExtendedImageSlidePageHandler(
+                child: Container(
+                    color: Colors.black,
+                    child: isInit
+                        ? Chewie(
+                            controller: chewieController,
+                          )
+                        : const Center(
+                            child:
+                                CircularProgressIndicator(color: Colors.white))),
+                heroBuilderForSlidingPage: (Widget result) {
+                  return Hero(
+                    tag: widget.heroTag,
+                    child: result,
+                    flightShuttleBuilder: (BuildContext flightContext,
+                        Animation<double> animation,
+                        HeroFlightDirection flightDirection,
+                        BuildContext fromHeroContext,
+                        BuildContext toHeroContext) {
+                      final Hero hero =
+                          (flightDirection == HeroFlightDirection.pop
+                              ? fromHeroContext.widget
+                              : toHeroContext.widget) as Hero;
+
+                      return hero.child;
+                    },
+                  );
+                },
+              )),
+        );
+      })),
+    );
   }
 }
