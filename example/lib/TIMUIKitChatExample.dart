@@ -76,7 +76,8 @@ class _TIMUIKitChatExampleState extends State<TIMUIKitChatExample> {
         isShowTextField: isShow,
           isAllowEmojiPanel: false,
           isAllowSoundMessage: false,
-          isUseMessageReaction: false,),
+          isUseMessageReaction: false,
+      themeData: MessageThemeData(messageBackgroundColor: Colors.redAccent,messageBorderRadius: BorderRadius.circular(8),avatarBorderRadius: BorderRadius.circular(90))),
       messageItemBuilder: MessageItemBuilder(
 
           messageRowBuilder: (V2TimMessage message,

@@ -42,7 +42,8 @@ class TIMUIKitHistoryMessageListContainer extends StatefulWidget {
 
   final void Function(String userID)? onTapAvatar;
 
-  @Deprecated("Nickname will not show in one-to-one chat, if you tend to control it in group chat, please use `isShowSelfNameInGroup` and `isShowOthersNameInGroup` from `config: TIMUIKitChatConfig` instead")
+  @Deprecated(
+      "Nickname will not show in one-to-one chat, if you tend to control it in group chat, please use `isShowSelfNameInGroup` and `isShowOthersNameInGroup` from `config: TIMUIKitChatConfig` instead")
   final bool showNickName;
 
   final TIMUIKitHistoryMessageListConfig? mainHistoryListConfig;
@@ -63,11 +64,12 @@ class TIMUIKitHistoryMessageListContainer extends StatefulWidget {
       this.extraTipsActionItemBuilder,
       this.onTapAvatar,
       @Deprecated("Nickname will not show in one-to-one chat, if you tend to control it in group chat, please use `isShowSelfNameInGroup` and `isShowOthersNameInGroup` from `config: TIMUIKitChatConfig` instead")
-      this.showNickName = true,
+          this.showNickName = true,
       this.initFindingMsg,
       this.mainHistoryListConfig,
       this.toolTipsConfig})
       : super(key: key);
+
   @override
   State<StatefulWidget> createState() =>
       _TIMUIKitHistoryMessageListContainerState();
@@ -125,7 +127,8 @@ class _TIMUIKitHistoryMessageListContainerState
               allowAtUserWhenReply: chatConfig.isAtWhenReply,
               allowAvatarTap: chatConfig.isAllowClickAvatar,
               allowLongPress: chatConfig.isAllowLongPressMessage,
-              isUseMessageReaction: chatConfig.isUseMessageReaction
+              isUseMessageReaction: chatConfig.isUseMessageReaction,
+              themeData: chatConfig.themeData,
             );
           },
           tongueItemBuilder: widget.tongueItemBuilder,

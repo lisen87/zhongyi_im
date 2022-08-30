@@ -84,6 +84,7 @@ class TIMUIKitChatConfig {
   /// [Default]: true.
   final bool isUseMessageReaction;
   final bool isShowTextField;
+  final MessageThemeData? themeData;
 
   const TIMUIKitChatConfig(
       {this.isAtWhenReply = true,
@@ -107,5 +108,6 @@ class TIMUIKitChatConfig {
       this.isShowGroupReadingStatus = true,
       this.showC2cMessageEditStaus = true,
       this.isShowTextField = true,
+      this.themeData,
       });
 }
