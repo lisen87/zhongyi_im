@@ -404,9 +404,9 @@ class _TIMUIKItHistoryMessageListItemState
           isFromSelf: messageItem.isSelf ?? false,
           clearJump: () => model.jumpMsgID = "",
           isShowJump: isShowJump,
-          borderRadius: widget.themeData?.messageBorderRadius,
+          borderRadius: (messageItem.isSelf ?? false) ? widget.themeData?.messageSelfBorderRadius: widget.themeData?.messageBorderRadius,
           fontStyle: widget.themeData?.messageTextStyle,
-          backgroundColor: widget.themeData?.messageBackgroundColor,
+          backgroundColor: (messageItem.isSelf ?? false) ?widget.themeData?.messageBackgroundColor : widget.themeData?.messageBackgroundColor,
           textPadding: widget.textPadding,
           isShowMessageReaction: widget.isUseMessageReaction,
         );

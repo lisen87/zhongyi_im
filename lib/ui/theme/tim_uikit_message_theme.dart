@@ -12,9 +12,11 @@ class MessageThemeData {
 
   /// Color for messageBackgroundColor
   final Color? messageBackgroundColor;
+  final Color? messageSelfBackgroundColor;
 
   /// border radius for text message
   final BorderRadius? messageBorderRadius;
+  final BorderRadius? messageSelfBorderRadius;
 
   final BorderRadius? avatarBorderRadius;
 
@@ -25,5 +27,7 @@ class MessageThemeData {
     this.nickNameTextStyle,
     this.timelineTextStyle,
     this.avatarBorderRadius,
+    this.messageSelfBackgroundColor,
+    this.messageSelfBorderRadius,
   });
 }
