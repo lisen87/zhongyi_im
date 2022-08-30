@@ -327,6 +327,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
               textFieldController.hideAllPanel();
             },
             child: Scaffold(
+              backgroundColor: const Color(0xFFf6f6f6),
                 appBar: TIMUIKitAppBar(
                   showTotalUnReadCount: widget.showTotalUnReadCount,
                   config: widget.appBarConfig,

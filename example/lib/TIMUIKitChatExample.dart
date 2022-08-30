@@ -85,12 +85,12 @@ class _TIMUIKitChatExampleState extends State<TIMUIKitChatExample> {
               bool isNeedShowJumpStatus,
               VoidCallback clearJumpStatus,
               Function onScrollToIndexBegin) {
-            // return null;
-            return Container(
-              color: Colors.red,
-              padding: EdgeInsets.all(50),
-              child: messageWidget,
-            );
+            return null;
+            // return Container(
+            //   color: Colors.red,
+            //   padding: EdgeInsets.all(50),
+            //   child: messageWidget,
+            // );
           },
         customMessageItemBuilder: (V2TimMessage message,
             bool isShowJump,
