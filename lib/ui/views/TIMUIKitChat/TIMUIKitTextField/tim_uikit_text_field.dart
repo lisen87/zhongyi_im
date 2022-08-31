@@ -247,7 +247,10 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
     final haveRepliedMessage = repliedMessage != null;
     if (haveRepliedMessage) {
       final text =
-          "${MessageUtils.getDisplayName(model.repliedMessage!)}:${model.abstractMessageBuilder != null ? model.abstractMessageBuilder!(model.repliedMessage!) : MessageUtils.getAbstractMessage(model.repliedMessage!)}";
+          "${MessageUtils.getDisplayName(model.repliedMessage!)}"
+          ":${(model.abstractMessageBuilder != null && model.abstractMessageBuilder!(model.repliedMessage!) != null)
+            ? model.abstractMessageBuilder!(model.repliedMessage!)
+            : MessageUtils.getAbstractMessage(model.repliedMessage!)}";
       return Container(
         color: hexToColor("EBF0F6"),
         alignment: Alignment.centerLeft,
