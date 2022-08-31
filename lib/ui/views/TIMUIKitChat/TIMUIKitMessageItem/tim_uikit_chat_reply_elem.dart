@@ -105,9 +105,9 @@ class _TIMUIKitReplyElemState extends TIMUIKitState<TIMUIKitReplyElem> {
     }
     final messageType = message.elemType;
     final isSelf = message.isSelf ?? false;
-    if (model.abstractMessageBuilder != null) {
+    if (model.abstractMessageBuilder != null && model.abstractMessageBuilder!(message) != null) {
       return _defaultRawMessageText(
-        model.abstractMessageBuilder!(message),
+        model.abstractMessageBuilder!(message)??"",
         theme,
       );
     }

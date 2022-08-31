@@ -60,7 +60,7 @@ class TUIChatViewModel extends ChangeNotifier {
   TIMUIKitChatConfig chatConfig = const TIMUIKitChatConfig();
   ValueChanged<String>? _setInputField;
   List<V2TimGroupApplication>? _groupApplicationList;
-  String Function(V2TimMessage message)? _abstractMessageBuilder;
+  String? Function(V2TimMessage message)? _abstractMessageBuilder;
   Function(String userID)? _onTapAvatar;
   List<V2TimGroupMemberFullInfo?>? _groupMemberList = [];
   V2TimGroupMemberFullInfo? _currentChatUserInfo;
@@ -146,7 +146,7 @@ class TUIChatViewModel extends ChangeNotifier {
   List<V2TimGroupApplication> get groupApplicationList =>
       _groupApplicationList ?? [];
 
-  String Function(V2TimMessage message)? get abstractMessageBuilder =>
+  String? Function(V2TimMessage message)? get abstractMessageBuilder =>
       _abstractMessageBuilder;
 
   Function(String userID)? get onTapAvatar => _onTapAvatar;
@@ -212,7 +212,7 @@ class TUIChatViewModel extends ChangeNotifier {
     _onTapAvatar = value;
   }
 
-  set abstractMessageBuilder(String Function(V2TimMessage message)? value) {
+  set abstractMessageBuilder(String? Function(V2TimMessage message)? value) {
     _abstractMessageBuilder = value;
   }
 

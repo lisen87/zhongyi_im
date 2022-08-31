@@ -23,6 +23,14 @@ class _TIMUIKitChatExampleState extends State<TIMUIKitChatExample> {
   @override
   Widget build(BuildContext context) {
     return TIMUIKitChat(
+      abstractMessageBuilder: (V2TimMessage message){
+        var customElem = message.customElem;
+        if(customElem == null){
+          return null;
+        }
+        String json = customElem.data!;
+        return '消息';
+      },
       conversationID:
           '121405', // Please fill in here according to the actual cleaning
       conversationShowName:

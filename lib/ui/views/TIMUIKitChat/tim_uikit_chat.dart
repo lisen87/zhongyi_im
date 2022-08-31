@@ -88,7 +88,7 @@ class TIMUIKitChat extends StatefulWidget {
   final ValueChanged<String>? onDealWithGroupApplication;
 
   /// the builder for abstract messages, normally used in replied message and forward message.
-  final String Function(V2TimMessage message)? abstractMessageBuilder;
+  final String? Function(V2TimMessage message)? abstractMessageBuilder;
 
   /// tool tips panel configuration, long press message will show tool tips panel
   final ToolTipsConfig? toolTipsConfig;
