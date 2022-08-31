@@ -352,6 +352,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                 tongueItemBuilder: widget.tongueItemBuilder,
                                 onLongPressForOthersHeadPortrait:
                                     (String? userId, String? nickName) {
+                                      textFieldController.hideAllPanel();
                                   if (widget.conversationType != 1) {
                                     textFieldController.longPressToAt(
                                         nickName, userId);

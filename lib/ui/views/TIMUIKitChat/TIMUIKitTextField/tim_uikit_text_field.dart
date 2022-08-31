@@ -762,13 +762,17 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
                                             hintStyle: const TextStyle(
-                                              // fontSize: 10,
+                                              fontSize: 14,
                                               color: Color(0xffAEA4A3),
                                             ),
                                             fillColor: Colors.white,
                                             filled: true,
                                             isDense: true,
                                             hintText: widget.hintText ?? ''),
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0xffAEA4A3),
+                                            ),
                                       ),
                               ),
                             if (forbiddenText == null)
