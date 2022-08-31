@@ -19,7 +19,7 @@ class TIMUIKitAppBarTitle extends StatelessWidget {
       return Text(
             conversationShowName,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 17,
             ),
           );
@@ -28,7 +28,7 @@ class TIMUIKitAppBarTitle extends StatelessWidget {
         return  const Text(
             "对方正在输入中...",
             style:  TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 17,
             ),
           );
@@ -39,7 +39,7 @@ class TIMUIKitAppBarTitle extends StatelessWidget {
       return Text(
             conversationShowName,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 17,
             ),
           );
