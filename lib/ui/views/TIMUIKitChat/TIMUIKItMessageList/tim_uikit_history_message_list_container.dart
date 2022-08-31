@@ -95,8 +95,6 @@ class _TIMUIKitHistoryMessageListContainerState
           lastMsgID: lastMsgID);
     }
   }
-  final TIMUIKitInputTextFieldController textFieldController =
-  TIMUIKitInputTextFieldController();
   @override
   void initState() {
     super.initState();
@@ -132,10 +130,6 @@ class _TIMUIKitHistoryMessageListContainerState
               allowLongPress: chatConfig.isAllowLongPressMessage,
               isUseMessageReaction: chatConfig.isUseMessageReaction,
               themeData: chatConfig.themeData,
-              onLongPress: (BuildContext context, V2TimMessage message){
-
-                textFieldController.hideAllPanel();
-              },
             );
           },
           tongueItemBuilder: widget.tongueItemBuilder,
