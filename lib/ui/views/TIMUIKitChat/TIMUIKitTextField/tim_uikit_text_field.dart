@@ -771,7 +771,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
                                             hintText: widget.hintText ?? ''),
                                             style: const TextStyle(
                                               fontSize: 14,
-                                              color: Color(0xffAEA4A3),
+                                              color: Colors.black,
                                             ),
                                       ),
                               ),

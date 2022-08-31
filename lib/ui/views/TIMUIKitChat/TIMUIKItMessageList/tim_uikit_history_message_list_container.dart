@@ -13,6 +13,8 @@ import 'package:tim_ui_kit/ui/views/TIMUIKitChat/TIMUIKItMessageList/tim_uikit_c
 import 'package:tim_ui_kit/ui/views/TIMUIKitChat/tim_uikit_chat_config.dart';
 import 'package:tim_ui_kit/base_widgets/tim_ui_kit_base.dart';
 
+import '../TIMUIKitTextField/tim_uikit_text_field_controller.dart';
+
 enum LoadingPlace {
   none,
   top,
@@ -93,7 +95,8 @@ class _TIMUIKitHistoryMessageListContainerState
           lastMsgID: lastMsgID);
     }
   }
-
+  final TIMUIKitInputTextFieldController textFieldController =
+  TIMUIKitInputTextFieldController();
   @override
   void initState() {
     super.initState();
@@ -129,6 +132,10 @@ class _TIMUIKitHistoryMessageListContainerState
               allowLongPress: chatConfig.isAllowLongPressMessage,
               isUseMessageReaction: chatConfig.isUseMessageReaction,
               themeData: chatConfig.themeData,
+              onLongPress: (BuildContext context, V2TimMessage message){
+
+                textFieldController.hideAllPanel();
+              },
             );
           },
           tongueItemBuilder: widget.tongueItemBuilder,

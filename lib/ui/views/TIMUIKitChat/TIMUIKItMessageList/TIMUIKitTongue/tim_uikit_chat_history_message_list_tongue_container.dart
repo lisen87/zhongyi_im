@@ -32,7 +32,7 @@ class _TIMUIKitHistoryMessageListTongueContainerState
   final TUIChatViewModel model = serviceLocator<TUIChatViewModel>();
   bool isFinishJumpToAt = false;
   List<V2TimGroupAtInfo?>? groupAtInfoList = [];
-  double screenHeight = 0;
+  double screenHeight = 900;
   @override
   void initState() {
     super.initState();
@@ -48,18 +48,18 @@ class _TIMUIKitHistoryMessageListTongueContainerState
     }
 
     widget.scrollController.addListener(() {
-      if(screenHeight == 0){
-        screenHeight = MediaQuery.of(context).size.height;
-      }
+      // if(screenHeight == 0){
+      //   screenHeight = MediaQuery.of(context).size.height;
+      // }
       if (widget.scrollController.offset <=
               widget.scrollController.position.minScrollExtent &&
           !widget.scrollController.position.outOfRange) {
         changePositionState(HistoryMessagePosition.bottom);
-      } else if (widget.scrollController.offset <= screenHeight * 1.6 &&
+      } else if (widget.scrollController.offset <= screenHeight &&
           widget.scrollController.offset > 0 &&
           !widget.scrollController.position.outOfRange) {
         changePositionState(HistoryMessagePosition.inTwoScreen);
-      } else if (widget.scrollController.offset > screenHeight * 1.6 &&
+      } else if (widget.scrollController.offset > screenHeight &&
           !widget.scrollController.position.outOfRange) {
         changePositionState(HistoryMessagePosition.awayTwoScreen);
       }
