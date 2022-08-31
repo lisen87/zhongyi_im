@@ -326,10 +326,6 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             onTap: () {
               textFieldController.hideAllPanel();
             },
-            onLongPressDown: (var details){
-              print('onLongPressDown');
-              textFieldController.hideAllPanel();
-            },
             child: Scaffold(
               backgroundColor: const Color(0xFFf6f6f6),
                 appBar: TIMUIKitAppBar(
@@ -374,6 +370,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                 showNickName: widget.showNickName,
                                 messageItemBuilder: widget.messageItemBuilder,
                                 conversationID: widget.conversationID,
+                                textFieldController: textFieldController,
                               ),
                             ))),
                     isMultiSelect

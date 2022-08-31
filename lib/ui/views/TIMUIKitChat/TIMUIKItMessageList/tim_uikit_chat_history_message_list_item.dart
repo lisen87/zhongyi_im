@@ -961,12 +961,13 @@ class _TIMUIKItHistoryMessageListItemState
                                       ignoring: model.isMultiSelect,
                                       child: _getMessageItemBuilder(
                                           message, message.status)),
-                                  onLongPress: () {
+                                  onLongPress: () async {
                                     if (widget.allowLongPress) {
+                                      if (widget.onLongPress != null) {
+                                        widget.onLongPress!(context, message);
+                                      }
+                                      await Future.delayed(const Duration(milliseconds: 200));
                                       _onLongPress(context, message);
-                                    }
-                                    if (widget.onLongPress != null) {
-                                      widget.onLongPress!(context, message);
                                     }
                                   },
                                 );

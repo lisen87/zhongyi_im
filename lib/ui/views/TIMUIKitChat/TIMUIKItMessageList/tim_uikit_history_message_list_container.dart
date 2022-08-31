@@ -52,6 +52,7 @@ class TIMUIKitHistoryMessageListContainer extends StatefulWidget {
 
   /// tool tips panel configuration, long press message will show tool tips panel
   final ToolTipsConfig? toolTipsConfig;
+  final TIMUIKitInputTextFieldController? textFieldController;
 
   const TIMUIKitHistoryMessageListContainer(
       {Key? key,
@@ -69,6 +70,7 @@ class TIMUIKitHistoryMessageListContainer extends StatefulWidget {
           this.showNickName = true,
       this.initFindingMsg,
       this.mainHistoryListConfig,
+      this.textFieldController,
       this.toolTipsConfig})
       : super(key: key);
 
@@ -130,6 +132,9 @@ class _TIMUIKitHistoryMessageListContainerState
               allowLongPress: chatConfig.isAllowLongPressMessage,
               isUseMessageReaction: chatConfig.isUseMessageReaction,
               themeData: chatConfig.themeData,
+              onLongPress: (BuildContext context, V2TimMessage message){
+                widget.textFieldController?.hideAllPanel();
+              },
             );
           },
           tongueItemBuilder: widget.tongueItemBuilder,
