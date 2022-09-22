@@ -107,6 +107,9 @@ class TIMUIKitChat extends StatefulWidget {
       void Function(int unicode) addText})? customStickerPanel;
 
   final Function? closeTap;
+
+  ///检测通过敏感字
+  final String? Function(String)? onDetectPass;
   TIMUIKitChat({
     Key? key,
     required this.conversationID,
@@ -135,6 +138,7 @@ class TIMUIKitChat extends StatefulWidget {
     this.onDealWithGroupApplication,
     this.toolTipsConfig,
     this.lifeCycle,
+    this.onDetectPass,
     this.topFixWidget = const SizedBox(),
   }) : super(key: key) {
     startTime = DateTime.now().millisecondsSinceEpoch;
@@ -180,7 +184,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     model.onTapAvatar = widget.onTapAvatar;
     model.lifeCycle = widget.lifeCycle;
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (kProfileMode) {
         widget.endTime = DateTime.now().millisecondsSinceEpoch;
         int timeSpend = widget.endTime - widget.startTime;
@@ -397,6 +401,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                   widget.config?.isAllowSoundMessage ?? true,
                               showSendEmoji:
                                   widget.config?.isAllowEmojiPanel ?? true,
+                            onDetectPass: widget.onDetectPass,
                             ),
                         ),
                   ],

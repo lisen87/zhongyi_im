@@ -71,6 +71,9 @@ class TIMUIKitInputTextField extends StatefulWidget {
 
   final Function? closeTap;
 
+  ///检测通过敏感字
+  final String? Function(String)? onDetectPass;
+
   const TIMUIKitInputTextField(
       {Key? key,
       required this.conversationID,
@@ -88,6 +91,7 @@ class TIMUIKitInputTextField extends StatefulWidget {
       this.backgroundColor,
       this.controller,
       this.closeTap,
+      this.onDetectPass,
       this.onChanged})
       : super(key: key);
 
@@ -359,7 +363,11 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
   }
 
   onSubmitted() async {
-    final text = textEditingController.text.trim();
+    dynamic text = textEditingController.text.trim();
+    text = widget.onDetectPass?.call(text);
+    if(text == null){
+      return;
+    }
     final convType =
         widget.conversationType == 1 ? ConvType.c2c : ConvType.group;
     if (text.isNotEmpty && text != zeroWidthSpace) {
@@ -836,7 +844,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
                         ),
                       ),
                       AnimatedContainer(
-                        duration: const Duration(milliseconds: 150),
+                        duration: const Duration(milliseconds: 50),
                         height: _getBottomHeight(),
                         child: _getBottomContainer(),
                       )

@@ -42,7 +42,7 @@ class _TIMUIKitChatExampleState extends State<TIMUIKitChatExample> {
       tongueItemBuilder:(VoidCallback onClick, MessageListTongueType valueType, int unreadCount){
         return Container(height: 100,width: 100,color: Colors.green,);
       },
-      topFixWidget: Container(height: 20,width: double.infinity,color: Colors.orange,),
+      topFixWidget: Container(height: 200,width: double.infinity,color: Colors.orange,),
       textFieldHintText: '请输入您要咨询的问题',
       closeTap: () async {
         print('closeTap');
@@ -53,6 +53,11 @@ class _TIMUIKitChatExampleState extends State<TIMUIKitChatExample> {
         setState(() {
           isShow = false;
         });
+      },
+      onDetectPass: (text){
+        print(text);
+        text = text.replaceAll('a', '**');
+        return text;
       },
       morePanelConfig: MorePanelConfig(
         showFilePickAction: false,
