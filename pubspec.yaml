@@ -51,7 +51,7 @@ dependencies:
   loading_animation_widget: ^1.1.0+3
   permission_handler: ^9.2.0
   tuple: ^2.0.0
-  flutter_screenutil: ^5.5.3+2
+#  flutter_screenutil: ^5.5.3+2
   flutter_markdown: ^0.6.9
   url_launcher: ^6.1.4
   link_preview_generator: ^1.2.0

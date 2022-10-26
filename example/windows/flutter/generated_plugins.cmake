@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   permission_handler_windows
+  tencent_trtc_cloud
   url_launcher_windows
 )
 

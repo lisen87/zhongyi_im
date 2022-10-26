@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tim_ui_kit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tim_ui_kit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
@@ -118,8 +117,8 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
                                       MessageStatus.V2TIM_MSG_STATUS_SENDING
                                   ? ConstrainedBox(
                                 constraints: BoxConstraints(
-                                    maxHeight: 420.h, //宽度尽可能大
-                                    maxWidth: 320.w //最小高度为50像素
+                                    maxHeight: 420, //宽度尽可能大
+                                    maxWidth: 320 //最小高度为50像素
                                 ),
                                 child: Image.file(
                                     File(widget

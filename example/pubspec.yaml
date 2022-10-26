@@ -38,6 +38,7 @@ dependencies:
     path: ../../zhongyi_im
   archive: ^3.3.0
   tencent_im_base: ^0.0.24
+  tim_ui_kit_calling_plugin: ^0.3.2
 #  tencent_im_base:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-base
 
