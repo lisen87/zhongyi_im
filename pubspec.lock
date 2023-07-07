@@ -548,10 +548,10 @@ packages:
     dependency: "direct main"
     description:
       name: fluttertoast
-      sha256: "474f7d506230897a3cd28c965ec21c5328ae5605fc9c400cd330e9e9d6ac175c"
+      sha256: b3ae793108ad2a7e8f2fea91ca5bb2ba7ef03621c4d9ed7a92fe3391da64c000
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "8.2.2"
+    version: "8.0.8"
   frontend_server_client:
     dependency: transitive
     description:
