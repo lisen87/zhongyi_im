@@ -12,6 +12,7 @@ import 'package:tim_ui_kit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tim_ui_kit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tim_ui_kit/ui/utils/platform.dart';
 import 'package:tim_ui_kit/ui/utils/tui_theme.dart';
+import 'package:tim_ui_kit/ui/widgets/toast.dart';
 
 class PermissionRequestInfo extends StatefulWidget {
   final Function removeOverLay;
@@ -202,17 +203,24 @@ class Permissions {
     return _prefix + appName + _postfixList[value];
   }
 
-  static Future<bool> checkPermission(BuildContext context, int value) async {
+  static Future<bool> checkPermission(BuildContext context, int value,title, content) async {
     final status = await Permission.byValue(value).status;
     if (status.isGranted) {
       return true;
     }
-    final bool? shouldRequestPermission =
-        await showPermissionConfirmDialog(context, value);
-    if (shouldRequestPermission != null && shouldRequestPermission) {
-      return await Permission.byValue(value).request().isGranted;
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    bool rationale = _prefs.getBool(Permission.byValue(value).toString()) ?? true;
+    if(!rationale){
+      showPermissionConfirmDialog(context,value);
+      return false;
     }
-    return shouldRequestPermission ?? false;
+    List<Permission> list = await PM.request(context, [Permission.byValue(value)], title, content) ?? [];
+    // final bool? shouldRequestPermission =
+    //     await showPermissionConfirmDialog(context, value);
+    // if (shouldRequestPermission != null && shouldRequestPermission) {
+    //   return await Permission.byValue(value).request().isGranted;
+    // }
+    return list.isEmpty;
   }
 
   static Future<bool> checkPermissionSetBefore(int value) async {
@@ -247,13 +255,13 @@ class Permissions {
       BuildContext context, value) async {
     final platformUtils = PlatformUtils();
     // 第一次直接走系统文案
-    if (!await checkPermissionSetBefore(value)) {
-      await setLocalPermission(value);
-      if (platformUtils.isAndroid) {
-        showPermissionRequestInfoDialog(context, value);
-      }
-      return true;
-    }
+    // if (!await checkPermissionSetBefore(value)) {
+    //   await setLocalPermission(value);
+    //   if (platformUtils.isAndroid) {
+    //     showPermissionRequestInfoDialog(context, value);
+    //   }
+    //   return true;
+    // }
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String appName = packageInfo.appName;
@@ -316,6 +324,239 @@ class Permissions {
                   )
                 ],
               );
+      },
+    );
+  }
+}
+
+class PM {
+  factory PM() {
+    return _getInstance();
+  }
+
+  static final PM _instance = PM._();
+
+  PM._();
+
+  static PM _getInstance() {
+    return _instance;
+  }
+
+  /// 返回空数组说明全部申请成功
+  static Future<List<Permission>?> request(BuildContext context, List<Permission> list,
+      String title, String content) async {
+    if (!Platform.isAndroid) {
+      return [];
+    } else {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      List<Permission> grantedList = [];
+      List<Permission> requestList = [];
+      List<Permission> deniedList = [];
+
+      for (var element in list) {
+        PermissionStatus status = await element.status;
+        if (status == PermissionStatus.granted) {
+          _prefs.remove(element.toString());
+          grantedList.add(element);
+        } else {
+          ///是否 未被 永久禁止
+          bool rationale = _prefs.getBool(element.toString()) ?? true;
+          print(rationale);
+          if (rationale) {
+            requestList.add(element);
+          } else {
+            deniedList.add(element);
+          }
+        }
+      }
+
+      if(grantedList.length == list.length){
+        ///全部有权限
+        return [];
+      }
+      if (requestList.isNotEmpty) {
+
+        if (context.mounted) {
+          bool? ok = await showPermissionDialog(context, title, content);
+          if (ok ?? false) {
+            Map<Permission, PermissionStatus> map = await requestList.request();
+            map.forEach((key, value) {
+              print(key.toString()+' == '+value.toString());
+              if(value == PermissionStatus.permanentlyDenied){
+                _prefs.setBool(key.toString(), false);
+                deniedList.add(key);
+              }else if(value == PermissionStatus.granted){
+                grantedList.add(key);
+              }else if(value == PermissionStatus.denied){
+                deniedList.add(key);
+              }
+            });
+            print('已有：'+grantedList.toString()+',未有:'+deniedList.toString());
+            return deniedList;
+          }else{
+            return list;
+          }
+        }else{
+          return list;
+        }
+      }else{
+        return deniedList;
+      }
+    }
+  }
+}
+class PMModel{
+  List<Permission>? deniedList;
+  bool? permanentlyDenied;
+
+  PMModel({this.deniedList, this.permanentlyDenied});
+}
+// class SPManagerIm{
+//
+//   SharedPreferences? sp ;
+//
+//   static final SPManagerIm _instance = SPManagerIm._();
+//   static SPManagerIm get instance => _instance;
+//
+//   factory SPManagerIm (){
+//     return _getInstance();
+//   }
+//   // 静态、同步、私有访问点
+//   static SPManagerIm _getInstance() {
+//     return _instance;
+//   }
+//
+//   ///私有构造方法
+//   SPManagerIm._();
+//
+//
+//   ///需要再main.datt中先调用
+//   initSp() async {
+//     sp ??= await SharedPreferences.getInstance();
+//     print("需要再main.dart中先调用");
+//   }
+//
+//   put (String key,var value) {
+//     if(value is String){
+//       sp!.setString(key, value);
+//     }else if(value is int){
+//       sp!.setInt(key, value);
+//     }else if(value is bool){
+//       sp!.setBool(key, value);
+//     }else if(value is double){
+//       sp!.setDouble(key, value);
+//     }else if(value is List<String>){
+//       sp!.setStringList(key, value);
+//     }
+//   }
+//   T? get<T> (String key) {
+//     var value = sp!.get(key);
+//     return value as T?;
+//   }
+//
+//   clear(){
+//     sp!.clear();
+//   }
+//
+//   remove(String key){
+//     sp!.remove(key);
+//   }
+//
+//   bool containsKey(String key){
+//     return sp!.containsKey(key);
+//   }
+// }
+Future<bool?> showPermissionDialog(
+    BuildContext context, String title, String content) {
+  if (Platform.isIOS) {
+    return Future.value(true);
+  } else {
+    return showGeneralDialog<bool>(
+      context: context,
+      pageBuilder: (context, anim1, anim2) {
+        return const Spacer();
+      },
+      barrierDismissible: true,
+      barrierLabel: "",
+      transitionDuration: const Duration(milliseconds: 200),
+      transitionBuilder: (context, anim1, anim2, child) {
+        return Transform.scale(
+          scale: anim1.value,
+          child: AlertDialog(
+            elevation: 0,
+            contentPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            content: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: EdgeInsets.only(left: 14, right: 14),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
+                  Spacer(),
+                  Text(
+                    content,
+                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.pop(context,false);
+                            },
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90),
+                              ),
+                              backgroundColor: Color(0xff999999),
+                              minimumSize: Size(double.infinity, 40),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '不同意',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                              ),
+                            )),
+                      ),
+                      SizedBox(width: 20),
+                      Expanded(
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.pop(context,true);
+                            },
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90),
+                              ),
+                              backgroundColor: Color(0xFFFFA54A),
+                              minimumSize: Size(double.infinity, 40),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '同意',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+        );
       },
     );
   }

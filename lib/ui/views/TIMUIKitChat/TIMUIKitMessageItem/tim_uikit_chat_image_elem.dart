@@ -6,6 +6,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
@@ -110,14 +111,19 @@ class _TIMUIKitImageElem extends TIMUIKitState<TIMUIKitImageElem> {
   _saveImageToLocal(context, String imageUrl, {bool isAsset = true}) async {
     var response;
     if (PlatformUtils().isIOS) {
-      if (!await Permissions.checkPermission(
-          context, Permission.photosAddOnly.value)) {
-        return;
-      }
+      // if (!await Permissions.checkPermission(
+      //     context, Permission.photosAddOnly.value)) {
+      //   return;
+      // }
     } else {
-      if (!await Permissions.checkPermission(
-          context, Permission.storage.value)) {
-        return;
+      DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+      int sdkInt = androidInfo.version.sdkInt ?? 0;
+      if(sdkInt < 33){
+        if (!await Permissions.checkPermission(
+            context, Permission.storage.value,'存储权限','为了保存图片，我们需要获得您设备的存储权限。更多权限信息可以通过“设置-隐私政策”查看。')) {
+          return;
+        }
       }
     }
 

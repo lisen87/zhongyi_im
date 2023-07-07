@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -200,9 +201,17 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
   _sendImageMessage() async {
     try {
       final bool isAndroid = PlatformUtils().isAndroid;
-      if (!await Permissions.checkPermission(context,
-          isAndroid ? Permission.storage.value : Permission.photos.value)) {
-        return;
+      if(isAndroid){
+        Permission p = Permission.storage;
+        DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+        AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+        int sdkInt = androidInfo.version.sdkInt ?? 0;
+        if(sdkInt >= 33){
+          p = Permission.photos;
+        }
+        if (!await Permissions.checkPermission(context,p.value,'相册权限','为了发送图片，我们需要获得您设备的相册权限。更多权限信息可以通过“设置-隐私政策”查看。')) {
+          return;
+        }
       }
       final convID = widget.conversationID;
       final convType =
@@ -235,8 +244,10 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
 
   _sendImageFromCamera() async {
     try {
+
       if (!await Permissions.checkPermission(
-          context, Permission.camera.value)) {
+          context, Permission.camera.value,'相机权限',
+          '为了发送图片，我们需要获得您设备的相机权限。更多权限信息可以通过“安全-隐私政策”查看。')) {
         return;
       }
       final convID = widget.conversationID;

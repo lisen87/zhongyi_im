@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:extended_image/extended_image.dart';
@@ -52,15 +53,24 @@ class _VideoScreenState extends TIMUIKitState<VideoScreen> {
   //保存网络视频到本地
   _savenNetworkVideo(context, String videoUrl, {bool isAsset = true}) async {
     if (PlatformUtils().isIOS) {
-      if (!await Permissions.checkPermission(
-          context, Permission.photosAddOnly.value)) {
-        return;
-      }
+      // if (!await Permissions.checkPermission(
+      //     context, Permission.photosAddOnly.value)) {
+      //   return;
+      // }
     } else {
-      if (!await Permissions.checkPermission(
-          context, Permission.storage.value)) {
-        return;
+      DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+      int sdkInt = androidInfo.version.sdkInt ?? 0;
+      if(sdkInt < 33){
+        if (!await Permissions.checkPermission(
+            context, Permission.storage.value,'存储权限','为了保存媒体文件，我们需要获得您设备的存储权限。更多权限信息可以通过“设置-隐私政策”查看。')) {
+          return;
+        }
       }
+      // if (!await Permissions.checkPermission(
+      //     context, Permission.storage.value)) {
+      //   return;
+      // }
     }
     String savePath = videoUrl;
     if (!isAsset) {

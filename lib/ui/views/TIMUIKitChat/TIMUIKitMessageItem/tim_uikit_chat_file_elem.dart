@@ -115,10 +115,10 @@ class _TIMUIKitFileElemState extends TIMUIKitState<TIMUIKitFileElem> {
     String savePathWithAppPath =
         appDocDir.path + '/' + widget.fileElem!.fileName!;
     if (received == 0) {
-      if (!await Permissions.checkPermission(
-          context, Permission.storage.value)) {
-        return;
-      }
+      // if (!await Permissions.checkPermission(
+      //     context, Permission.storage.value)) {
+      //   return;
+      // }
       try {
         if (hasFile(savePath)) {
           showOpenFileConfirmDialog(context, savePath, theme);

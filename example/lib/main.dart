@@ -6,6 +6,7 @@ import 'package:example/TIMUIKitConversationExample.dart';
 import 'package:example/TIMUIKitProfileExample.dart';
 import 'package:flutter/material.dart';
 import 'package:tim_ui_kit/tim_ui_kit.dart';
+import 'package:tim_ui_kit/ui/utils/permission.dart';
 import 'package:tim_ui_kit/ui/widgets/toast.dart';
 
 import 'TIMUIKitAddFriendExample.dart';
@@ -17,7 +18,7 @@ import 'TIMUIKitGroupProfileExample.dart';
 import 'TIMUIKitNewContactExample.dart';
 import 'TIMUIKitSearchExample.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const MyApp());
 }
 
